@@ -1,0 +1,25 @@
+{
+  "name": "omnistack10-devRadar",
+  "version": "1.0.0",
+  "description": "Project of the OmniStack season 10: A radar of Developers. Using NodeJS in backend, ReactJS in Frontend and React Native for mobile integration.",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagojacinto/omnistack10-devRadar.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiagojacinto/omnistack10-devRadar/issues"
+  },
+  "homepage": "https://github.com/thiagojacinto/omnistack10-devRadar#readme"
+}
