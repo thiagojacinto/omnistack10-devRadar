@@ -4,7 +4,8 @@
   "description": "Project of the OmniStack season 10: A radar of Developers. Using NodeJS in backend, ReactJS in Frontend and React Native for mobile integration.",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.8.7"
   },
   "devDependencies": {},
   "scripts": {
