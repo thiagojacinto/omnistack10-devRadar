@@ -8,23 +8,23 @@ module.exports = {
     const { latitude, longitude, techs } = request.query;
 
     const techArray = convertStringToArray(techs);
-    
+
     const devs = await Developer.find({
       // Filter by techs
       techs: {
         $in: techArray
-    },
-    location: {
+      },
+      location: {
         $near: {
-            $geometry: {
-                type: 'Point',
-                coordinates: [longitude, latitude]
-            },
-            $maxDistance: 10000
+          $geometry: {
+            type: 'Point',
+            coordinates: [longitude, latitude]
+          },
+          $maxDistance: 10000
         }
-    }
+      }
     })
-  
+
     return response.json(devs);
   }
 }
