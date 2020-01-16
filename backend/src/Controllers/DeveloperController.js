@@ -56,12 +56,16 @@ module.exports = {
   // EXTRA METHODS - Challenges
 
   // async update()
+  async update(request, response) {
+
+    const foundDev = Developer.findByIdAndUpdate()
+  },
 
   // async destroy()
   async destroy(request, response) {
-
+    // Gets username as input parameter 
     const { username } = request.query;
-
+    // then looks for this dev`s username to delete
     const devToRemove = await Developer.findOneAndRemove({
       github_username: {
         $in: username
