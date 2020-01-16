@@ -53,8 +53,22 @@ module.exports = {
     return response.json(dev);
   },
 
+  // EXTRA METHODS - Challenges
+
   // async update()
 
   // async destroy()
+  async destroy(request, response) {
+
+    const { username } = request.query;
+
+    const devToRemove = await Developer.findOneAndRemove({
+      github_username: {
+        $in: username
+      }
+    });
+
+    return response.json(devToRemove);
+  }
 
 };

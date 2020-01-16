@@ -15,7 +15,8 @@ const app = express();
 mongoose.connect('mongodb+srv://higuetari:5WBGCoLkZUGa5c4X@cluster0-b0ery.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true, // Closes deprecation of 'collection.ensureIndex' by doing:
+  useCreateIndex: true, // Closes deprecation of 'collection.ensureIndex' by doing it
+  useFindAndModify: false,  // Dreprecation warning of `findOneAndDelete()` route method
 });
 
 app.use(express.json());
