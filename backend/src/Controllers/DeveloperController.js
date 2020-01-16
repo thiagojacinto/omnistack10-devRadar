@@ -10,6 +10,15 @@ const convertStringToArray = require('../utils/convertStringToArray');
 // - destroy: remove an item from DB.
 
 module.exports = {
+
+  // Finds all developers:
+  async index(req, res) {
+    const developers = await Developer.find();
+
+    return res.json(developers);
+  },
+
+  // Creates a new dev:
   async store(request, response) {
     // console.log(request.body);  // Verify body's content
     const { github_username, techs, longitude, latitude } = request.body;
@@ -41,7 +50,11 @@ module.exports = {
         location
       });
     }
-      
     return response.json(dev);
-  }
+  },
+
+  // async update()
+
+  // async destroy()
+
 };
