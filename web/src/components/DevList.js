@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import DevCard from './DevCard';
 import api from '../services/api-call';
 
-export default function DevList() {
+export default function DevList(props) {
 
   var [devs, setDevs] = useState([]);
   
@@ -15,12 +15,13 @@ export default function DevList() {
     };
     // Runs that function
     loadDevelopers();
-  }, []);
+  }, [props.addedDev]);
+
 
   return (
     <>
       {devs.map(dev => (
-        <DevCard dev={dev} />
+        <DevCard key={dev._id} dev={dev} />
       ))}
     </>
   );

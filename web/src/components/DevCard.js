@@ -5,7 +5,7 @@ import '../styles/Main.css';
 export default function DevCard(props) {
 
   return (
-    <li key={props.dev.id} className="dev-item">
+    <li className="dev-item">
 
       <header>
         <img src={props.dev.avatar_url} alt='Developer avatar' />
