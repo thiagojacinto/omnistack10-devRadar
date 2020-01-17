@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
+const cors = require('cors');
 
 const app = express();
 
@@ -19,6 +20,7 @@ mongoose.connect('mongodb+srv://higuetari:5WBGCoLkZUGa5c4X@cluster0-b0ery.mongod
   useFindAndModify: false,  // Dreprecation warning of `findOneAndDelete()` route method
 });
 
+app.use(cors()) // Permits connection with all kind of host and origin
 app.use(express.json());
 
 app.use(routes);
