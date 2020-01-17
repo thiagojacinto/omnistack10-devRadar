@@ -7,3 +7,22 @@
   flex-direction: row;
   align-items: flex-start;
 }
+
+main {
+  margin-left: 3vw;
+}
+
+@media (max-width: 1000px) {
+  #app {
+    flex-direction: column;
+  }
+
+  #app main {
+    margin-left: 0;
+    margin-top: 3vw;
+  }
+
+  #app aside {
+    width: 100%;
+  }
+}
