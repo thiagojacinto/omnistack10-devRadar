@@ -1,31 +1,22 @@
-import React , { useState, useEffect } from 'react';
+import React from 'react';
 
 import '../styles/Main.css';
 
 export default function DevCard(props) {
 
-  var [link, setLink] = useState('');
-  
-  // creates github link with the username:
-  useEffect(() => {
-    const user = props.github_username;
-    var git_link = `http://github.com/` + user;
-    setLink(git_link);
-  }, []);
-
   return (
-    <li className="dev-item">
+    <li key={props.dev.id} className="dev-item">
 
       <header>
-        <img src={props.avatar_url} alt='Developer avatar image' />
+        <img src={props.dev.avatar_url} alt='Developer avatar' />
         <div className="dev-info">
-          <strong>{props.name}</strong>
-          <span>{props.techs}</span>
+          <strong>{props.dev.name}</strong>
+          <span>{props.dev.techs.join(', ')}</span>
         </div>
       </header>
 
-      <p>{props.bio}</p>
-      <a href={link}>Acessar perfil no GitHub</a>
+      <p>{props.dev.bio}</p>
+      <a href={`https://github.com/` + props.dev.github_username}>Acessar perfil no GitHub</a>
     </li>
   );
 }

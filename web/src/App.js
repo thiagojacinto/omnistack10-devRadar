@@ -6,7 +6,7 @@ import './styles/global.css';
 import './styles/App.css';
 import './styles/Sidebar.css';
 
-import DevCard from './components/DevCard';
+import DevList from './components/DevList';
 
 // REACT FOR BEGINNERS:
 // - Component: Isolated HTML, CSS or/and JS block that do not interferes in another element of the application;
@@ -56,6 +56,9 @@ function App() {
     });
 
     console.log(response); // Verify
+
+    setGithubUsername('');
+    setTechs('');
   }
 
   return (
@@ -112,9 +115,7 @@ function App() {
 
       <main>
         <ul>
-          <DevCard />
-          <DevCard />
-          <DevCard />
+          <DevList />
         </ul>
       </main>
     </div>
