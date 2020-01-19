@@ -58,7 +58,13 @@ module.exports = {
   // async update()
   async update(request, response) {
 
-    const foundDev = Developer.findByIdAndUpdate()
+    const id = request.params.id; 
+
+    const foundDev = await Developer.findByIdAndUpdate(id, {
+      $set: data,
+    });
+
+    return response.json(foundDev);
   },
 
   // async destroy()
