@@ -57,20 +57,24 @@ module.exports = {
 
   // async update()
   async update(request, response) {
-
-    const id = request.params.id; 
-
-    const foundDev = await Developer.findByIdAndUpdate(id, {
-      $set: data,
-    });
-
-    return response.json(foundDev);
+    const result = Developer.findByIdAndUpdate(
+      request.params.id,
+      request.body,
+      {new: true},
+      // Callback function
+      (error, dev) => {
+        if (error) return response.status(500).send(error);
+        return response.send(dev);
+      }
+    );
+      
   },
 
   // async destroy()
   async destroy(request, response) {
     // Gets username as input parameter 
     const { username } = request.query;
+    
     // then looks for this dev`s username to delete
     const devToRemove = await Developer.findOneAndRemove({
       github_username: {
