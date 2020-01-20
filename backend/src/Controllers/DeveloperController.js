@@ -57,6 +57,7 @@ module.exports = {
 
   // async update()
   async update(request, response) {
+
     const result = Developer.findByIdAndUpdate(
       request.params.id,
       request.body,
@@ -64,7 +65,13 @@ module.exports = {
       // Callback function
       (error, dev) => {
         if (error) return response.status(500).send(error);
-        return response.send(dev);
+        // message of update
+        var message = dev ? 
+          `Dev ${Developer.name}'s info updated.`
+          : `Developer not found.`;
+
+        // Return a message & dev`s info IF IT WAS UPDATE CORRECTLY
+        return response.send({message, dev});
       }
     );
       
