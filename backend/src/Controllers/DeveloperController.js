@@ -90,6 +90,21 @@ module.exports = {
     });
 
     return response.json(devToRemove);
+  },
+
+  // Find by ID and show it:
+  async show(request, response) {
+    const result = Developer.findById(
+      request.params.id,
+      // Callback function
+      (error, dev) => {
+        if (error) return response.status(500).send(error);
+
+        // Return found developer
+        return response.status(200).send(dev);
+      }
+    );
+
   }
 
 };
