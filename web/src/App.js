@@ -8,6 +8,7 @@ import './styles/Sidebar.css';
 
 import DevList from './components/DevList';
 import DevForm from './components/DevForm';
+import NavBar from './components/Navbar';
 
 // REACT FOR BEGINNERS:
 // - Component: Isolated HTML, CSS or/and JS block that do not interferes in another element of the application;
@@ -27,6 +28,8 @@ function App() {
   }
 
   return (
+    <>
+    <NavBar onSubmit={handleAddDev}/>
     <div id='app'>
       <aside>
         <strong>Cadastrar</strong>
@@ -39,6 +42,7 @@ function App() {
         </ul>
       </main>
     </div>
+    </>
   );
 }
 
