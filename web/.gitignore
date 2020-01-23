@@ -12,7 +12,7 @@
 /build
 
 # VS Code config
-.vscode
+.vscode/launch.json
 
 # misc
 .DS_Store
