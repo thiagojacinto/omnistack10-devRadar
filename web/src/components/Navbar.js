@@ -1,33 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import api from '../services/api-call';
 
-export default function Navbar(props) {
+import ModalFoundDev from './ModalFoundDev';
 
-  function handleSearchDev(event) {
-    console.log(event);
+export default function Navbar() {
+
+  const [dev, setDev] = useState({});  
+
+  async function handleSearchDev(event, id) {
+    event.preventDefault();
     
+    const foundDev = await api.get(`/v1/search/${id}`);
+    
+    setDev(foundDev.data);
+    console.log(dev);
   }
 
   return (
     <header className="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="">DevRadar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand" href="">DevRadar</a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
 
-            <a class="nav-item nav-link" href="#">Saiba mais<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Sua empresa</a>
-            <button class="nav-item nav-link btn btn-outline-secondary" data-toggle="collapse" data-target="#search-by-id" aria-expanded="false" aria-controls="search-by-id">Procurar</button>
-            <button class="nav-item nav-link btn btn-outline-secondary" data-toggle="collapse" data-target="#delete-by-username" aria-expanded="false" aria-controls="delete-by-username">Remover</button>
+            <a className="nav-item nav-link" href="#">Saiba mais<span className="sr-only">(current)</span></a>
+            <a className="nav-item nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Sua empresa</a>
+            <button className="nav-item nav-link btn btn-outline-secondary" data-toggle="collapse" data-target="#search-by-id" aria-expanded="false" aria-controls="search-by-id">Procurar</button>
+            <button className="nav-item nav-link btn btn-outline-secondary" data-toggle="collapse" data-target="#delete-by-username" aria-expanded="false" aria-controls="delete-by-username">Remover</button>
 
             <div id="advanced-inputs" className="my-2 my-lg-0">
 
-              <form onSubmit={handleSearchDev} action="GET" className="form-inline nav-item collapse" id="search-by-id">
+              <form action="" className="form-inline nav-item collapse" id="search-by-id">
 
-                <input class="nav-item form-control mr-md-4" type="search" placeholder="ID do Dev" aria-label="search-by-id" />
-                <button class="btn btn-outline-secondary" type="button" >
+                <input className="nav-item form-control mr-md-4" type="search" placeholder="ID do Dev" aria-label="search-by-id" id="search-dev" />
+                
+                <button 
+                  className="btn btn-outline-secondary" 
+                  data-toggle="modal" 
+                  data-target="#foundOrNotDev" 
+                  type="button" 
+                  onClick={event => handleSearchDev(event, document.getElementById('search-dev').value)}
+                >
                   Procurar Dev
               </button>
 
@@ -35,8 +51,8 @@ export default function Navbar(props) {
 
               <form onSubmit={handleSearchDev} action="DELETE" className="form-inline nav-item collapse" id="delete-by-username" >
 
-                <input class="nav-item form-control mr-md-4" type="search" placeholder="Username" aria-label="delete-by-username" />
-                <button class="btn btn-outline-danger" type="button" >
+                <input className="nav-item form-control mr-md-4" type="search" placeholder="Username" aria-label="delete-by-username" />
+                <button className="btn btn-outline-danger" type="button" >
                   Remover
               </button>
 
@@ -46,6 +62,10 @@ export default function Navbar(props) {
           </div>
         </div>
       </nav>
+      { dev !== {} ?
+        <ModalFoundDev dev={dev} />
+        : <></>
+      }
     </header>
   );
 }
