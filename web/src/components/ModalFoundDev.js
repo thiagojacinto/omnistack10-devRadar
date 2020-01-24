@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/ModalItem.css';
 
 import DevCard from './DevCard';
 
@@ -14,18 +15,34 @@ export default function ModalFoundDev(props) {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="foundOrNotInfo">Developer</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <button 
+                type="button" 
+                className="close" 
+                data-dismiss="modal" 
+                aria-label="Close" 
+
+                onClick={e => props.closeModal(e)}
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
-              {props.dev ? 
+              {/* When have the ID, show the card on modal. */}
+              {props && props.dev._id ? 
                 <DevCard key={props.dev._id} dev={props.dev} /> 
-                // <> </>
-                : <p> {props.dev.name} </p>}
+                : <><span>Nenhum desenvolvedor encontrado com essa ID. Tente novamente.</span></>
+              }
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button 
+              type="button" 
+              className="btn btn-secondary" 
+              data-dismiss="modal"
+
+              onClick={e => props.closeModal(e)}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
