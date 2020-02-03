@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import api from './services/api-call';
 
@@ -8,7 +8,7 @@ import './styles/Sidebar.css';
 
 import DevList from './components/DevList';
 import DevForm from './components/DevForm';
-import NavBar from './components/Navbar';
+import Navbar from './components/Navbar';
 
 // REACT FOR BEGINNERS:
 // - Component: Isolated HTML, CSS or/and JS block that do not interferes in another element of the application;
@@ -18,6 +18,22 @@ import NavBar from './components/Navbar';
 function App() {
 
   const [addedDev, setAddedDev] = useState(0);
+  const [dev, setDev] = useState({});  
+
+  async function handleSearchDev(event, id) {
+    event.preventDefault();
+    
+    const foundDev = await api.get(`/v1/search/${id}`);
+    
+    setDev(foundDev.data);
+    // console.log(dev); // Verify
+  }
+
+  function closeModal(event) {
+    event.preventDefault();
+
+    setDev();
+  }
 
   async function handleAddDev(data) {
     // Send data to server:
@@ -27,9 +43,31 @@ function App() {
     setAddedDev(addedDev + 1);
   }
 
+  async function handleRemoveDev(data) {
+
+    const { username } = data;
+    // server call
+    const deleted = await api.delete(`/v1/removedev`, username);
+    console.log(deleted);
+    
+    // Removes developers count:
+    setAddedDev(addedDev - 1);
+    setDev()
+  }
+
+  useEffect(() => {
+
+    
+  }, [addedDev]);
+
   return (
     <>
-    <NavBar onSubmit={handleAddDev}/>
+    <Navbar 
+      dev={dev}
+      removeDev={handleRemoveDev} 
+      handleSearchDev={handleSearchDev}
+      closeModal={closeModal}
+    />
     <div id='app'>
       <aside>
         <strong>Cadastrar</strong>
