@@ -26,13 +26,23 @@ export default function ModalFoundDev(props) {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div className="modal-body">
-              {/* When have the ID, show the card on modal. */}
-              {props && props.dev._id ? 
-                <DevCard key={props.dev._id} dev={props.dev} /> 
-                : <><span>Nenhum desenvolvedor encontrado com essa ID. Tente novamente.</span></>
-              }
-            </div>
+            { props && props.dev && props.type ? 
+               <div className="modal-body">
+                <p className="strong">Desenvolvedor removido:</p>
+                {props.dev.username ?
+                  <DevCard key={props.dev._id} dev={props.dev} />
+                  : <><span>Nenhum desenvolvedor encontrado com essa ID. Tente novamente.</span></>
+                }
+              </div> 
+
+            /* When have the ID, show the card on modal. */
+              : props && props.dev && props.dev._id ? 
+                <div className="modal-body">
+                  <DevCard key={props.dev._id} dev={props.dev} /> 
+                </div>
+              : <><span>Nenhum desenvolvedor encontrado com essa ID. Tente novamente.</span></>
+             }
+            
             <div className="modal-footer">
               <button 
               type="button" 
