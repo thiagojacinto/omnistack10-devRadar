@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
-import api from '../services/api-call';
-
+import React from 'react';
 import ModalFoundDev from './ModalFoundDev';
 
-export default function Navbar() {
+export default function Navbar(props) {
 
-  const [dev, setDev] = useState({});  
-
-  async function handleSearchDev(event, id) {
-    event.preventDefault();
-    
-    const foundDev = await api.get(`/v1/search/${id}`);
-    
-    setDev(foundDev.data);
-    // console.log(dev); // Verify
-  }
-
-  function closeModal(event) {
+  function handleDel(event) {
     event.preventDefault();
 
-    setDev();
+    const input = document.querySelector('#delete-input');
+    // verify if text input is void:
+    if (!input.value) return alert('Não é possível inserir vazio. Escreva o `usuário do GitHub` de algum desenvolvedor.')
+    props.removeDev({username: input.value});
+    console.log(`Username digitado no front: ${input.value}; `);
+    
+    // clears text input value
+    input.value = '';
   }
 
   return (
@@ -48,7 +42,7 @@ export default function Navbar() {
                   data-toggle="modal" 
                   data-target="#foundOrNotDev" 
                   type="button" 
-                  onClick={event => handleSearchDev(event, document.getElementById('search-dev').value)}
+                  onClick={event => props.handleSearchDev(event, document.getElementById('search-dev').value)}
                 >
                   Procurar Dev
               </button>
@@ -57,11 +51,18 @@ export default function Navbar() {
 
               <form action="" className="form-inline nav-item collapse" id="delete-by-username" >
 
-                <input className="nav-item form-control mr-md-4" type="search" placeholder="Username" aria-label="delete-by-username" />
+                <input 
+                  id="delete-input" 
+                  className="nav-item form-control mr-md-4" 
+                  type="search" 
+                  placeholder="Username" 
+                  aria-label="delete-by-username" 
+                />
                 
                 <button 
-                  className="btn btn-outline-danger" 
-                  type="button" 
+                  className="btn btn-outline-danger"
+                  type="button"
+                  onClick={(event) => handleDel(event)}
                 >
                   Remover
                 </button>
@@ -72,10 +73,10 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-      { dev && dev._id ?
-        <ModalFoundDev dev={dev} closeModal={closeModal}/>
-        : <ModalFoundDev dev={false} closeModal={closeModal}/>
-        // : <></>
+      {/* Modal conditional rendering */}
+      { props.dev && props.dev._id ?
+        <ModalFoundDev dev={props.dev} closeModal={props.closeModal}/>
+        : <ModalFoundDev dev={props.dev} closeModal={props.closeModal}/>
       }
     </header>
   );
