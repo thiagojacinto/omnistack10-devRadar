@@ -80,17 +80,16 @@ module.exports = {
   // async destroy()
   async destroy(request, response) {
     // Gets username as input parameter 
-    console.log(`username caught @ backend: ${request.body}`);
+    // console.log(`username caught at backend: ${request.params.username}`); // Verify
     
     // then looks for this dev`s username to delete
     await Developer.findOneAndDelete({
-      github_username: {
-        $in: request.body
-      }
+      github_username: request.params.username,
     }, (error, dev) => {
+      // return error info
       if (error) return response.status(500).send(error)
       // or
-      console.log(`Removed dev object: ${dev}`);
+      // console.log(`Removed dev object: ${dev}`); // Verify
       return response.json(dev);
     });
   },
