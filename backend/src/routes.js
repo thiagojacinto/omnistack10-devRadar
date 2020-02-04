@@ -10,7 +10,7 @@ routes.post('/v1/devs', DeveloperController.store);
 // Get all developers
 routes.get('/v1/devs', DeveloperController.index);
 // Removes a developer by its 'github_username'
-routes.delete('/v1/removedev', DeveloperController.destroy);
+routes.delete('/v1/removedev/:username', DeveloperController.destroy);
 // Updates developer info by id:
 routes.patch('/v1/update/:id', DeveloperController.update);
 // Find one developer by ID
