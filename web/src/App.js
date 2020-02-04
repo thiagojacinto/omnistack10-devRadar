@@ -47,7 +47,7 @@ function App() {
 
     const { username } = data;
     // server call
-    const deleted = await api.delete(`/v1/removedev`, username);
+    const deleted = await api.delete(`/v1/removedev/${username}`);
     console.log(deleted);
     
     // Removes developers count:
