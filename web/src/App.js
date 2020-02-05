@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import api from './services/api-call';
 
@@ -9,6 +9,7 @@ import './styles/Sidebar.css';
 import DevList from './components/DevList';
 import DevForm from './components/DevForm';
 import Navbar from './components/Navbar';
+import SearchForm from './components/SearchForm';
 
 // REACT FOR BEGINNERS:
 // - Component: Isolated HTML, CSS or/and JS block that do not interferes in another element of the application;
@@ -48,17 +49,23 @@ function App() {
     const { username } = data;
     // server call
     const deleted = await api.delete(`/v1/removedev/${username}`);
-    console.log(deleted);
-    
+    // console.log(deleted); // Verify
     // Removes developers count:
     setAddedDev(addedDev - 1);
     setDev()
+
+    return deleted;
   }
 
-  useEffect(() => {
-
+  async function handleSearchByTech(data) {
+    console.log(`/v1/searchdev?techs=${data.techs}&latitude=${data.latitude}&longitude=${data.longitude}`);
     
-  }, [addedDev]);
+    // server call
+    const techsCapable = await api.get(`/v1/searchdev?techs=${data.techs}&latitude=${data.latitude}&longitude=${data.longitude}`, data);
+    console.log(techsCapable);
+
+    return techsCapable;
+  }
 
   return (
     <>
@@ -72,6 +79,11 @@ function App() {
       <aside>
         <strong>Cadastrar</strong>
         <DevForm onSubmit={handleAddDev}/>
+      </aside>
+
+      <aside>
+        <strong>Procurar</strong>
+        <SearchForm onSubmit={handleSearchByTech} closeModal={closeModal}/>
       </aside>
 
       <main>
