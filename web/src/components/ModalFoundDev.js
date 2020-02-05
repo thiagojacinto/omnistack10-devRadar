@@ -31,7 +31,7 @@ export default function ModalFoundDev(props) {
                 <p className="strong">Desenvolvedor removido:</p>
                 {props.dev.username ?
                   <DevCard key={props.dev._id} dev={props.dev} />
-                  : <><span>Nenhum desenvolvedor encontrado com essa ID. Tente novamente.</span></>
+                  : <><span>Nenhum desenvolvedor encontrado com esse `username`. Tente novamente.</span></>
                 }
               </div> 
 
