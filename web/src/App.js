@@ -58,11 +58,13 @@ function App() {
   }
 
   async function handleSearchByTech(data) {
-    console.log(`/v1/searchdev?techs=${data.techs}&latitude=${data.latitude}&longitude=${data.longitude}`);
-    
+    const urlAttachment = `/v1/searchdev?techs=${data.techs}&latitude=${data.latitude}&longitude=${data.longitude}`;
+    console.log(urlAttachment); // Verify
+
     // server call
-    const techsCapable = await api.get(`/v1/searchdev?techs=${data.techs}&latitude=${data.latitude}&longitude=${data.longitude}`, data);
-    console.log(techsCapable);
+    const techsCapable = await api.get(urlAttachment, data);
+    // console.log(techsCapable); // Verify
+    setDev(techsCapable.data[0]); 
 
     return techsCapable;
   }
