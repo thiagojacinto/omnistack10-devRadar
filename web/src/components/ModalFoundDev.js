@@ -36,7 +36,7 @@ export default function ModalFoundDev(props) {
               </div> 
 
             /* When have the ID, show the card on modal. */
-              : props && props.dev && props.dev._id ? 
+              : props && props.dev && props.dev.length > 1 ? 
                 <div className="modal-body">
                   <DevCard key={props.dev._id} dev={props.dev} /> 
                 </div>
