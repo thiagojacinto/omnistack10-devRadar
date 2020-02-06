@@ -16,7 +16,7 @@ export default function SearchForm(props) {
     // const [ value, name ] = event.target;
     var name = event.target.name;
     var value = event.target.value;
-    console.log(`Name: ${name}, Value: ${value}`); // Verify
+    // console.log(`Name: ${name}, Value: ${value}`); // Verify
   
     if (name === 'latitude') { 
       setLocation({
@@ -29,7 +29,7 @@ export default function SearchForm(props) {
         longitude: value,
       });
     } else if (name === 'techs') setTechs(value.toString());
-    else console.log("name not found");
+    else console.log("Error: `name` not found");
     
   };
 
@@ -37,15 +37,19 @@ export default function SearchForm(props) {
     event.preventDefault()
     console.log(`techs: ${techs}, lat: ${location.latitude} & long: ${location.longitude}`);
     
-    const found = await props.onSubmit({
+    const found = props.onSubmit({
       techs,
       latitude: location.latitude,
       longitude: location.longitude,
     });
-    console.log(found);
 
-    found && found.data ? setDev(found.data[0]) : setDev({});
+    found
+      .then(data => {
 
+        console.log(data);
+        data && data.data[0].length > 0 ? setDev(data.data[0]) : setDev({});
+      })
+      
     // Clears input text
     setLocation({
       latitude: '',
@@ -103,7 +107,7 @@ export default function SearchForm(props) {
     {/* Conditional rendering of Modal */}
     { dev && dev._id ? 
         <ModalFoundDev dev={dev} closeModal={props.closeModal} />
-        : null
+        : <ModalFoundDev dev={false} closeModal={props.closeModal} />
     }
     </>
   );
