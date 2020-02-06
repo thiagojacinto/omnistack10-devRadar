@@ -38,7 +38,8 @@ export default function ModalFoundDev(props) {
             /* When have the ID, show the card on modal. */
               : props && props.dev && props.dev.length > 1 ? 
                 <div className="modal-body">
-                  <DevCard key={props.dev._id} dev={props.dev} /> 
+                  {/* WHEN SHOWING ONLY FIRST */}
+                  {/* <DevCard key={props.dev._id} dev={props.dev} /> */}
                 </div>
               : <><span>Nenhum desenvolvedor encontrado com essa ID. Tente novamente.</span></>
              }
