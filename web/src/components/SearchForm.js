@@ -8,7 +8,7 @@ export default function SearchForm(props) {
     longitude: 0,
   });
   var [techs, setTechs] = useState('');
-  var [dev, setDev] = useState({});
+  var [devs, setDevs] = useState({});
 
   function handleChange(event) {
     event.preventDefault();
@@ -47,7 +47,7 @@ export default function SearchForm(props) {
       .then(data => {
 
         console.log(data);
-        data && data.data[0].length > 0 ? setDev(data.data[0]) : setDev({});
+        data && data.data[0].length > 0 ? setDevs(data.data) : setDevs({});
       })
       
     // Clears input text
@@ -105,8 +105,8 @@ export default function SearchForm(props) {
     </form>
 
     {/* Conditional rendering of Modal */}
-    { dev && dev._id ? 
-        <ModalFoundDev dev={dev} closeModal={props.closeModal} />
+    { devs && devs._id ? 
+        <ModalFoundDev dev={devs} closeModal={props.closeModal} />
         : <ModalFoundDev dev={false} closeModal={props.closeModal} />
     }
     </>
