@@ -7,6 +7,11 @@ aside {
   border-radius: 5px;
 }
 
+aside div {
+  padding-bottom: 15px;
+
+}
+
 aside strong {
   font-size: 20px;
   text-align: center;
