@@ -79,13 +79,19 @@ function App() {
     />
     <div id='app'>
       <aside>
+        <div className="register">
+
         <strong>Cadastrar</strong>
         <DevForm onSubmit={handleAddDev}/>
-      </aside>
+        </div>
+      {/* </aside>
 
-      <aside>
+      <aside> */}
+      <div className="search-by-tech">
+
         <strong>Procurar</strong>
         <SearchForm onSubmit={handleSearchByTech} closeModal={closeModal}/>
+      </div>
       </aside>
 
       <main>
