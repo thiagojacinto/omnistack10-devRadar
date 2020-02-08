@@ -5,8 +5,17 @@ export default function FoundDevList(props) {
 
   return (
     <>
-      {props.devs.map( dev => {
-        <DevCard key={dev._id} dev={dev} />
+      <button
+        type="button"
+        className="close"
+        aria-label="Close"
+        onClick={e => props.close(e)}
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      
+      {props.devs.map(dev => {
+        return <DevCard key={dev._id} dev={dev} />
       })}
     </>
   );
