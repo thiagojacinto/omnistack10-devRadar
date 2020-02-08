@@ -71,3 +71,7 @@ aside form button[type=submit] {
 aside form button[type=submit]:hover {
   background: #6931ca;
 }
+
+aside .foundList {
+  padding: 30px 0;
+}
