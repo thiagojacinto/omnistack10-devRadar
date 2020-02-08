@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ModalFoundDev from './ModalFoundDev';
+import FoundDevList from './FoundDevList';
 
 export default function SearchForm(props) {
 
@@ -35,7 +35,7 @@ export default function SearchForm(props) {
 
   async function handleSubmit(event) {
     event.preventDefault()
-    console.log(`techs: ${techs}, lat: ${location.latitude} & long: ${location.longitude}`);
+    // console.log(`techs: ${techs}, lat: ${location.latitude} & long: ${location.longitude}`); // Verify
     
     const found = props.onSubmit({
       techs,
@@ -44,10 +44,9 @@ export default function SearchForm(props) {
     });
 
     found
-      .then(data => {
-
-        console.log(data);
-        data && data.data[0].length > 0 ? setDevs(data.data) : setDevs({});
+      .then(result => {
+        // console.log(result);  // Verify
+        result && result.data.length > 0 ? setDevs(result.data) : setDevs({});
       })
       
     // Clears input text
@@ -56,6 +55,12 @@ export default function SearchForm(props) {
       longitude: ''
     }); 
     setTechs('');
+  }
+
+  function closeFound(event) {
+    event.preventDefault();
+
+    setDevs({});  // Clears devs & closes the FoundDevList
   }
   
   return (
@@ -69,7 +74,7 @@ export default function SearchForm(props) {
             type="text" 
             name="latitude" 
             id="latitude--input" 
-            required defaultValue={location.latitude}
+            required value={location.latitude}
             onChange = {event => handleChange(event)}
           />
         </div>
@@ -80,7 +85,7 @@ export default function SearchForm(props) {
             type="text" 
             name="longitude" 
             id="longitude--input"
-            required defaultValue = {location.longitude}
+            required value = {location.longitude}
             onChange = {event => handleChange(event)}
           />
         </div>
@@ -92,22 +97,20 @@ export default function SearchForm(props) {
           type="text" 
           name="techs" 
           id="searchbox--techs" 
-          required defaultValue = {techs}
+          required value = {techs}
           onChange = {event => handleChange(event)}
         />
-        <button 
-          type="submit"
-          data-toggle="modal" 
-          data-target="#foundOrNotDev" 
-        >Procurar</button>
+        <button type="submit">Procurar</button>
       </div>
 
     </form>
 
     {/* Conditional rendering of Modal */}
-    { devs && devs._id ? 
-        <ModalFoundDev dev={devs} closeModal={props.closeModal} />
-        : <ModalFoundDev dev={false} closeModal={props.closeModal} />
+    { devs && devs.length > 0 ? 
+      <div className="foundList swing-in-top-fwd">
+        <FoundDevList devs={devs} close={closeFound}/>
+      </div>
+      : <></>
     }
     </>
   );
