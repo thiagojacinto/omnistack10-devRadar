@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import FoundDevList from './FoundDevList';
 
+import convertStringToArray from '../services/convertStringToArray';
+
 export default function SearchForm(props) {
 
   var [location, setLocation] = useState({
@@ -28,8 +30,11 @@ export default function SearchForm(props) {
         ...location,
         longitude: value,
       });
-    } else if (name === 'techs') setTechs(value.toString());
-    else console.log("Error: `name` not found");
+    } else if (name === 'techs') { 
+
+      const techsArray = convertStringToArray(value.toString());
+      setTechs(techsArray);
+    } else console.log("Error: `name` not found");
     
   };
 
@@ -105,7 +110,7 @@ export default function SearchForm(props) {
 
     </form>
 
-    {/* Conditional rendering of Modal */}
+    {/* Conditional rendering of the result of search */}
     { devs && devs.length > 0 ? 
       <div className="foundList swing-in-top-fwd">
         <FoundDevList devs={devs} close={closeFound}/>
