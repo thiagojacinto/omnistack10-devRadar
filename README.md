@@ -8,6 +8,8 @@ Uses `express`, `axios`, `mongoose` & `cors` modules to make it possible to work
 
 Proposed challenges: .update() & .destroy() methods to deal with info with MongoDB.
 
+Tried to deploy it inside Netlify: https://devradar-backend-api.netlify.com
+
 ## [Frontend](/web/): ReactJS
 
 Starting with [`create-react-app`]() to set up the environment and then adding `axios` to connect with backend server.
